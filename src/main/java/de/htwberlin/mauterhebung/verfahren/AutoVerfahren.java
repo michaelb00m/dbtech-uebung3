@@ -30,7 +30,6 @@ public class AutoVerfahren {
       new InvalidVehicleDataException(
           "Fahrzeug mit Kennzeichen " + fahrzeug.getKennzeichen() + " hat " + fahrzeug.getAchsen()
               + " Achsen, aber " + achszahl + " Achsen wurden angegeben");
-
     }
     Fahrzeuggerat fahrzeuggerat = fahrzeuggeratMapper.findByFzId(fahrzeug.getFzId());
     Mautabschnitt mautabschnitt = mautabschnittMapper.findById(mautAbschnitt);
