@@ -10,12 +10,12 @@ public class Buchung {
   private String kennzeichen;
   private Date buchungsdatum;
   private Date befahrungsdatum;
-  private double kosten;
+  private float kosten;
 
   public Buchung() {}
 
   public Buchung(int buchungId, int bId, int abschnittsId, int kategorieId, String kennzeichen,
-      Date buchungsdatum, Date befahrungsdatum, double kosten) {
+      Date buchungsdatum, Date befahrungsdatum, float kosten) {
     this.buchungId = buchungId;
     this.bId = bId;
     this.abschnittsId = abschnittsId;
@@ -34,11 +34,11 @@ public class Buchung {
     this.buchungId = buchungId;
   }
 
-  public long getbId() {
+  public long getBId() {
     return bId;
   }
 
-  public void setbId(int bId) {
+  public void setBId(int bId) {
     this.bId = bId;
   }
 
@@ -82,11 +82,11 @@ public class Buchung {
     this.befahrungsdatum = befahrungsdatum;
   }
 
-  public double getKosten() {
+  public float getKosten() {
     return kosten;
   }
 
-  public void setKosten(double kosten) {
+  public void setKosten(float kosten) {
     this.kosten = kosten;
   }
 

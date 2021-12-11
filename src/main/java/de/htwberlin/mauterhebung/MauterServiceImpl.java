@@ -9,8 +9,11 @@ import de.htwberlin.exceptions.DataException;
 import de.htwberlin.exceptions.InvalidVehicleDataException;
 import de.htwberlin.exceptions.UnkownVehicleException;
 import de.htwberlin.mauterhebung.dao.Buchung;
+import de.htwberlin.mauterhebung.dao.Buchungstatus;
 import de.htwberlin.mauterhebung.dao.Fahrzeug;
+import de.htwberlin.mauterhebung.dao.Fahrzeuggerat;
 import de.htwberlin.mauterhebung.mapper.BuchungMapper;
+import de.htwberlin.mauterhebung.mapper.BuchungstatusMapper;
 import de.htwberlin.mauterhebung.mapper.FahrzeugMapper;
 import de.htwberlin.mauterhebung.mapper.FahrzeuggeratMapper;
 import de.htwberlin.mauterhebung.mapper.MautabschnittMapper;
@@ -32,6 +35,7 @@ public class MauterServiceImpl implements IMauterhebung {
 
 	private static final FahrzeugMapper fahrzeugMapper = FahrzeugMapper.getInstance();
 	private static final BuchungMapper buchungMapper = BuchungMapper.getInstance();
+	private static final FahrzeuggeratMapper fahrzeuggeratMapper = FahrzeuggeratMapper.getInstance();
 
 	@Override
 	public void setConnection(Connection connection) {
@@ -40,10 +44,11 @@ public class MauterServiceImpl implements IMauterhebung {
 	}
 
 	private void configureGateways(Connection connection) {
-		List<DataGateway> gateways = List.of(MautkategorieMapper.getInstance(),
-				FahrzeugMapper.getInstance(), MautabschnittMapper.getInstance(),
-				BuchungMapper.getInstance(), MauterhebungMapper.getInstance(),
-				FahrzeuggeratMapper.getInstance(), UtilGateway.getInstance());
+		List<DataGateway> gateways =
+				List.of(MautkategorieMapper.getInstance(), FahrzeugMapper.getInstance(),
+						MautabschnittMapper.getInstance(), BuchungMapper.getInstance(),
+						MauterhebungMapper.getInstance(), FahrzeuggeratMapper.getInstance(),
+						UtilGateway.getInstance(), BuchungstatusMapper.getInstance());
 		for (DataGateway gateway : gateways) {
 			gateway.setConnection(connection);
 		}
@@ -62,10 +67,15 @@ public class MauterServiceImpl implements IMauterhebung {
 		L.info("berechneMaut({}, {}, {})", mautAbschnitt, achszahl, kennzeichen);
 		Fahrzeug fahrzeug = fahrzeugMapper.findByKennzeichen(kennzeichen);
 		Buchung buchung = buchungMapper.findByKennzeichen(kennzeichen);
-		if (fahrzeug != null)
-			return Math.round(AutoVerfahren.berechneMaut(fahrzeug, mautAbschnitt, achszahl) * 100) / 100f;
-		else if (buchung != null)
+		if (fahrzeug != null) {
+			Fahrzeuggerat fahrzeuggerat = fahrzeuggeratMapper.findByFzId(fahrzeug.getFzId());
+			if (fahrzeuggerat != null && fahrzeuggerat.getStatus() != "inactive")
+				return Math.round(AutoVerfahren.berechneMaut(fahrzeug, mautAbschnitt, achszahl) * 100)
+						/ 100f;
+		}
+		if (buchung != null) {
 			return Math.round(BuchVerfahren.berechneMaut(buchung, mautAbschnitt, achszahl) * 100) / 100f;
+		}
 
 		L.error("Fehler beim Auslesen des Fahrzeugs mit Kennzeichen {}", kennzeichen);
 		throw new UnkownVehicleException("Fahrzeug mit Kennzeichen " + kennzeichen + " nicht gefunden");

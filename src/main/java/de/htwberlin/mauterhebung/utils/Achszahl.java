@@ -13,4 +13,9 @@ public class Achszahl {
   public boolean isValid(int value) {
     return greater ? value >= this.value : value == this.value;
   }
+
+  @Override
+  public String toString() {
+    return greater ? ">= " + value : "= " + value;
+  }
 }

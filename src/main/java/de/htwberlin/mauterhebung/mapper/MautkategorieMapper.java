@@ -39,6 +39,23 @@ public class MautkategorieMapper extends AbstractDataGateway {
     return mautkategorie;
   }
 
+  public Mautkategorie findById(int kategorieId) {
+    L.info("getMautkategorieFromSskl({})", kategorieId);
+    Mautkategorie mautkategorie = null;
+    try (PreparedStatement stmt =
+        getConnection().prepareStatement("SELECT * FROM mautkategorie WHERE kategorie_id = ?")) {
+      stmt.setInt(1, kategorieId);
+      ResultSet rs = stmt.executeQuery();
+      if (rs.next()) {
+        mautkategorie = rsToMautkategorie(rs);
+      }
+    } catch (SQLException e) {
+      L.error("Fehler beim Auslesen der Mautkategorie mit SSKL-ID {}", kategorieId, e);
+      throw new DataException(e);
+    }
+    return mautkategorie;
+  }
+
   public Mautkategorie findBySsklId(int ssklId) {
     L.info("getMautkategorieFromSskl({})", ssklId);
     Mautkategorie mautkategorie = null;

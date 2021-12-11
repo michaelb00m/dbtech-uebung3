@@ -29,13 +29,13 @@ public class BuchungMapper extends AbstractDataGateway {
   public Buchung rsToBuchung(ResultSet rs) throws SQLException {
     Buchung buchung = new Buchung();
     buchung.setBuchungId(rs.getInt("buchung_id"));
-    buchung.setbId(rs.getInt("b_id"));
+    buchung.setBId(rs.getInt("b_id"));
     buchung.setAbschnittsId(rs.getInt("abschnitts_id"));
     buchung.setKategorieId(rs.getInt("kategorie_id"));
     buchung.setKennzeichen(rs.getString("kennzeichen"));
     buchung.setBuchungsdatum(rs.getDate("buchungsdatum"));
     buchung.setBefahrungsdatum(rs.getDate("befahrungsdatum"));
-    buchung.setKosten(rs.getDouble("kosten"));
+    buchung.setKosten(rs.getFloat("kosten"));
     return buchung;
   }
 
@@ -54,5 +54,38 @@ public class BuchungMapper extends AbstractDataGateway {
       throw new DataException(e);
     }
     return buchung;
+  }
+
+  public void updateBefahrungsdatum(Buchung buchung) {
+    L.info("update({})", buchung);
+    try {
+      PreparedStatement ps = getConnection().prepareStatement(
+          "UPDATE buchung SET befahrungsdatum = ? WHERE buchung_id = ?");
+      ps.setDate(1, buchung.getBefahrungsdatum());
+      ps.setLong(2, buchung.getBuchungId());
+    } catch (SQLException e) {
+      L.error("Fehler beim Aktualisieren des Buchungstatus mit ID {}", buchung.getBuchungId(), e);
+      throw new DataException(e);
+    }
+  }
+
+  public void update(Buchung buchung) {
+    L.info("update({})", buchung);
+    try {
+      PreparedStatement ps = getConnection().prepareStatement(
+          "UPDATE buchung SET b_id = ?, abschnitts_id = ?, kategorie_id = ?, kennzeichen = ?, buchungsdatum = ?, befahrungsdatum = ?, kosten = ? WHERE buchung_id = ?");
+      ps.setLong(1, buchung.getBId());
+      ps.setLong(2, buchung.getAbschnittsId());
+      ps.setLong(3, buchung.getKategorieId());
+      ps.setString(4, buchung.getKennzeichen());
+      ps.setDate(5, buchung.getBuchungsdatum());
+      ps.setDate(6, buchung.getBefahrungsdatum());
+      ps.setDouble(7, buchung.getKosten());
+      ps.setLong(8, buchung.getBuchungId());
+      ps.executeUpdate();
+    } catch (SQLException e) {
+      L.error("Fehler beim Aktualisieren des Buchungstatus mit ID {}", buchung.getBuchungId(), e);
+      throw new DataException(e);
+    }
   }
 }

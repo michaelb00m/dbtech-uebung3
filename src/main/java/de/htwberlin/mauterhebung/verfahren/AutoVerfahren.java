@@ -25,20 +25,22 @@ public class AutoVerfahren {
   public static float berechneMaut(Fahrzeug fahrzeug, int mautAbschnitt, int achszahl) {
     L.info("berechneAutoVerfahren({}, {}, {})", fahrzeug, mautAbschnitt, achszahl);
     if (fahrzeug.getAchsen() != achszahl) {
-      L.error("Fahrzeug mit Kennzeichen {} hat {} Achsen, aber {} Achsen wurden angegeben",
+      L.error(
+          "Fahrzeug mit Kennzeichen {} hat laut Datenbank {} Achsen, aber {} Achsen wurden erkannt",
           fahrzeug.getKennzeichen(), fahrzeug.getAchsen(), achszahl);
-      new InvalidVehicleDataException(
-          "Fahrzeug mit Kennzeichen " + fahrzeug.getKennzeichen() + " hat " + fahrzeug.getAchsen()
-              + " Achsen, aber " + achszahl + " Achsen wurden angegeben");
+      throw new InvalidVehicleDataException(
+          "Fahrzeug mit Kennzeichen " + fahrzeug.getKennzeichen() + " hat laut Datenbank "
+              + fahrzeug.getAchsen() + " Achsen, aber " + achszahl + " Achsen wurden erkannt");
     }
     Fahrzeuggerat fahrzeuggerat = fahrzeuggeratMapper.findByFzId(fahrzeug.getFzId());
     Mautabschnitt mautabschnitt = mautabschnittMapper.findById(mautAbschnitt);
-    Mautkategorie mautkategorie = mautkategorieMapper.findBySsklIdAndAchszahl(fahrzeug.getSsklId(), achszahl);
+    Mautkategorie mautkategorie =
+        mautkategorieMapper.findBySsklIdAndAchszahl(fahrzeug.getSsklId(), achszahl);
     float maut = mautabschnitt.getLaenge() * mautkategorie.getMautsatzJeKm() / 100000;
     Mauterhebung mauterhebung =
         new Mauterhebung(mautabschnitt.getAbschnittsId(), fahrzeuggerat.getFzgId(),
             mautkategorie.getKategorieId(), new Date(System.currentTimeMillis()), maut);
-    mauterhebungMapper.insert(mauterhebung); 
+    mauterhebungMapper.insert(mauterhebung);
     return maut;
   }
 }
