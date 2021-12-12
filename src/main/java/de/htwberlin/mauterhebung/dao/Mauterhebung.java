@@ -1,16 +1,16 @@
 package de.htwberlin.mauterhebung.dao;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Mauterhebung {
   private int mautId;
   private int abschnittId;
   private long fzgId;
   private int kategorieId;
-  private Date befahrungsdatum;
+  private Timestamp befahrungsdatum;
   private float kosten;
 
-  public Mauterhebung(int abschnittId, long fzgId, int kategorieId, Date befahrungsdatum,
+  public Mauterhebung(int abschnittId, long fzgId, int kategorieId, Timestamp befahrungsdatum,
       float kosten) {
     this.abschnittId = abschnittId;
     this.fzgId = fzgId;
@@ -51,11 +51,11 @@ public class Mauterhebung {
     this.kategorieId = kategorieId;
   }
 
-  public Date getBefahrungsdatum() {
+  public Timestamp getBefahrungsdatum() {
     return befahrungsdatum;
   }
 
-  public void setBefahrungsdatum(Date befahrungsdatum) {
+  public void setBefahrungsdatum(Timestamp befahrungsdatum) {
     this.befahrungsdatum = befahrungsdatum;
   }
 

@@ -41,10 +41,10 @@ public class MautabschnittMapper extends AbstractDataGateway {
 		L.info("getMautabschnitt({})", mautabschnittId);
 		Mautabschnitt mautabschnitt = null;
 		try {
-			PreparedStatement statement =
+			PreparedStatement ps =
 					getConnection().prepareStatement("SELECT * FROM mautabschnitt WHERE abschnitts_id= ?");
-			statement.setInt(1, mautabschnittId);
-			try (ResultSet rs = statement.executeQuery()) {
+			ps.setInt(1, mautabschnittId);
+			try (ResultSet rs = ps.executeQuery()) {
 				if (rs.next()) {
 					mautabschnitt = rsToMautabschnitt(rs);
 				}

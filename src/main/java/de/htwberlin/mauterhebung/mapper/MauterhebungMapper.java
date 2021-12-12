@@ -35,7 +35,7 @@ public class MauterhebungMapper extends AbstractDataGateway {
       ps.setInt(2, mauterhebung.getAbschnittId());
       ps.setLong(3, mauterhebung.getFzgId());
       ps.setInt(4, mauterhebung.getKategorieId());
-      ps.setDate(5, mauterhebung.getBefahrungsdatum());
+      ps.setTimestamp(5, mauterhebung.getBefahrungsdatum());
       ps.setFloat(6, mauterhebung.getKosten());
       ps.executeUpdate();
     } catch (SQLException e) {

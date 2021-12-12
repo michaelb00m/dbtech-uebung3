@@ -1,6 +1,6 @@
 package de.htwberlin.mauterhebung.dao;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Fahrzeug {
   private long fzId;
@@ -10,14 +10,14 @@ public class Fahrzeug {
   private String fin;
   private int achsen;
   private double gewicht;
-  private Date anmeldedatum;
-  private Date abmeldedatum;
+  private Timestamp anmeldedatum;
+  private Timestamp abmeldedatum;
   private String zulassungsland;
 
   public Fahrzeug() {}
 
   public Fahrzeug(long fzId, int ssklId, int nutzerId, String kennzeichen, String find, int achsen,
-      double gewicht, Date anmeldedatum, Date abmeldedatum, String zulassungsland) {
+      double gewicht, Timestamp anmeldedatum, Timestamp abmeldedatum, String zulassungsland) {
     this.fzId = fzId;
     this.ssklId = ssklId;
     this.nutzerId = nutzerId;
@@ -86,19 +86,19 @@ public class Fahrzeug {
     this.gewicht = gewicht;
   }
 
-  public Date getAnmeldedatum() {
+  public Timestamp getAnmeldedatum() {
     return anmeldedatum;
   }
 
-  public void setAnmeldedatum(Date anmeldedatum) {
+  public void setAnmeldedatum(Timestamp anmeldedatum) {
     this.anmeldedatum = anmeldedatum;
   }
 
-  public Date getAbmeldedatum() {
+  public Timestamp getAbmeldedatum() {
     return abmeldedatum;
   }
 
-  public void setAbmeldedatum(Date abmeldedatum) {
+  public void setAbmeldedatum(Timestamp abmeldedatum) {
     this.abmeldedatum = abmeldedatum;
   }
 

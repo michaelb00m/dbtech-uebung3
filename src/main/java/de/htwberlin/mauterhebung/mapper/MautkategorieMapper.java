@@ -42,10 +42,10 @@ public class MautkategorieMapper extends AbstractDataGateway {
   public Mautkategorie findById(int kategorieId) {
     L.info("getMautkategorieFromSskl({})", kategorieId);
     Mautkategorie mautkategorie = null;
-    try (PreparedStatement stmt =
+    try (PreparedStatement ps =
         getConnection().prepareStatement("SELECT * FROM mautkategorie WHERE kategorie_id = ?")) {
-      stmt.setInt(1, kategorieId);
-      ResultSet rs = stmt.executeQuery();
+      ps.setInt(1, kategorieId);
+      ResultSet rs = ps.executeQuery();
       if (rs.next()) {
         mautkategorie = rsToMautkategorie(rs);
       }

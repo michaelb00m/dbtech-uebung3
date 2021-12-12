@@ -1,6 +1,6 @@
 package de.htwberlin.mauterhebung.dao;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Buchung {
   private int buchungId;
@@ -8,14 +8,14 @@ public class Buchung {
   private int abschnittsId;
   private int kategorieId;
   private String kennzeichen;
-  private Date buchungsdatum;
-  private Date befahrungsdatum;
+  private Timestamp buchungsdatum;
+  private Timestamp befahrungsdatum;
   private float kosten;
 
   public Buchung() {}
 
   public Buchung(int buchungId, int bId, int abschnittsId, int kategorieId, String kennzeichen,
-      Date buchungsdatum, Date befahrungsdatum, float kosten) {
+      Timestamp buchungsdatum, Timestamp befahrungsdatum, float kosten) {
     this.buchungId = buchungId;
     this.bId = bId;
     this.abschnittsId = abschnittsId;
@@ -66,19 +66,19 @@ public class Buchung {
     this.kennzeichen = kennzeichen;
   }
 
-  public Date getBuchungsdatum() {
+  public Timestamp getBuchungsdatum() {
     return buchungsdatum;
   }
 
-  public void setBuchungsdatum(Date buchungsdatum) {
+  public void setBuchungsdatum(Timestamp buchungsdatum) {
     this.buchungsdatum = buchungsdatum;
   }
 
-  public Date getBefahrungsdatum() {
+  public Timestamp getBefahrungsdatum() {
     return befahrungsdatum;
   }
 
-  public void setBefahrungsdatum(Date befahrungsdatum) {
+  public void setBefahrungsdatum(Timestamp befahrungsdatum) {
     this.befahrungsdatum = befahrungsdatum;
   }
 

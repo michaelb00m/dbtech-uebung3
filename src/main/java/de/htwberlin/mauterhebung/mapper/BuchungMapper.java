@@ -33,8 +33,8 @@ public class BuchungMapper extends AbstractDataGateway {
     buchung.setAbschnittsId(rs.getInt("abschnitts_id"));
     buchung.setKategorieId(rs.getInt("kategorie_id"));
     buchung.setKennzeichen(rs.getString("kennzeichen"));
-    buchung.setBuchungsdatum(rs.getDate("buchungsdatum"));
-    buchung.setBefahrungsdatum(rs.getDate("befahrungsdatum"));
+    buchung.setBuchungsdatum(rs.getTimestamp("buchungsdatum"));
+    buchung.setBefahrungsdatum(rs.getTimestamp("befahrungsdatum"));
     buchung.setKosten(rs.getFloat("kosten"));
     return buchung;
   }
@@ -61,7 +61,7 @@ public class BuchungMapper extends AbstractDataGateway {
     try {
       PreparedStatement ps = getConnection().prepareStatement(
           "UPDATE buchung SET befahrungsdatum = ? WHERE buchung_id = ?");
-      ps.setDate(1, buchung.getBefahrungsdatum());
+      ps.setTimestamp(1, buchung.getBefahrungsdatum());
       ps.setLong(2, buchung.getBuchungId());
     } catch (SQLException e) {
       L.error("Fehler beim Aktualisieren des Buchungstatus mit ID {}", buchung.getBuchungId(), e);
@@ -78,8 +78,8 @@ public class BuchungMapper extends AbstractDataGateway {
       ps.setLong(2, buchung.getAbschnittsId());
       ps.setLong(3, buchung.getKategorieId());
       ps.setString(4, buchung.getKennzeichen());
-      ps.setDate(5, buchung.getBuchungsdatum());
-      ps.setDate(6, buchung.getBefahrungsdatum());
+      ps.setTimestamp(5, buchung.getBuchungsdatum());
+      ps.setTimestamp(6, buchung.getBefahrungsdatum());
       ps.setDouble(7, buchung.getKosten());
       ps.setLong(8, buchung.getBuchungId());
       ps.executeUpdate();

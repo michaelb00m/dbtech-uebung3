@@ -31,8 +31,8 @@ public class FahrzeuggeratMapper extends AbstractDataGateway {
 		fahrzeuggerat.setFzId(rs.getLong("fz_id"));
 		fahrzeuggerat.setStatus(rs.getString("status"));
 		fahrzeuggerat.setTyp(rs.getString("typ"));
-		fahrzeuggerat.setEinbaudatum(rs.getDate("einbaudatum"));
-		fahrzeuggerat.setAusbaudatum(rs.getDate("ausbaudatum"));
+		fahrzeuggerat.setEinbaudatum(rs.getTimestamp("einbaudatum"));
+		fahrzeuggerat.setAusbaudatum(rs.getTimestamp("ausbaudatum"));
 		return fahrzeuggerat;
 	}
 
@@ -40,10 +40,10 @@ public class FahrzeuggeratMapper extends AbstractDataGateway {
 		L.info("findById({})", fzgId);
 		Fahrzeuggerat fahrzeuggerat = null;
 		try {
-			PreparedStatement statement =
+			PreparedStatement ps =
 					getConnection().prepareStatement("SELECT * FROM fahrzeuggerat WHERE fzg_id = ?");
-			statement.setInt(1, fzgId);
-			try (ResultSet rs = statement.executeQuery()) {
+			ps.setInt(1, fzgId);
+			try (ResultSet rs = ps.executeQuery()) {
 				if (rs.next()) {
 					fahrzeuggerat = rsToFahrzeuggerat(rs);
 				}
@@ -60,17 +60,16 @@ public class FahrzeuggeratMapper extends AbstractDataGateway {
 		L.info("findByFzId({})", fzId);
 		Fahrzeuggerat fahrzeuggerat = null;
 		try {
-			PreparedStatement statement =
+			PreparedStatement ps =
 					getConnection().prepareStatement("SELECT * FROM fahrzeuggerat WHERE fz_id = ?");
-			statement.setLong(1, fzId);
-			try (ResultSet rs = statement.executeQuery()) {
+			ps.setLong(1, fzId);
+			try (ResultSet rs = ps.executeQuery()) {
 				if (rs.next()) {
 					fahrzeuggerat = rsToFahrzeuggerat(rs);
 				}
 			}
 		} catch (SQLException e) {
-			L.error("Fehler beim Auslesen des Fahrzeuggerats mit FZ_ID {}", fzId);
-			L.error("", e);
+			L.error("Fehler beim Auslesen des Fahrzeuggerats mit FZ_ID {}", fzId, e);
 			throw new DataException(e);
 		}
 		return fahrzeuggerat;

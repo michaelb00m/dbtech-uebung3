@@ -1,21 +1,19 @@
 package de.htwberlin.mauterhebung.dao;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Fahrzeuggerat {
   private long fzgId;
   private long fzId;
   private String status;
   private String typ;
-  private Date einbaudatum;
-  private Date ausbaudatum;
+  private Timestamp einbaudatum;
+  private Timestamp ausbaudatum;
 
-  public Fahrzeuggerat() {
+  public Fahrzeuggerat() {}
 
-  }
-
-  public Fahrzeuggerat(int fzgId, long fzId, String status, String typ, Date einbaudatum,
-      Date ausbaudatum) {
+  public Fahrzeuggerat(int fzgId, long fzId, String status, String typ, Timestamp einbaudatum,
+      Timestamp ausbaudatum) {
     this.fzgId = fzgId;
     this.fzId = fzId;
     this.status = status;
@@ -56,19 +54,19 @@ public class Fahrzeuggerat {
     this.typ = typ;
   }
 
-  public Date getEinbaudatum() {
+  public Timestamp getEinbaudatum() {
     return einbaudatum;
   }
 
-  public void setEinbaudatum(Date einbaudatum) {
+  public void setEinbaudatum(Timestamp einbaudatum) {
     this.einbaudatum = einbaudatum;
   }
 
-  public Date getAusbaudatum() {
+  public Timestamp getAusbaudatum() {
     return ausbaudatum;
   }
 
-  public void setAusbaudatum(Date ausbaudatum) {
+  public void setAusbaudatum(Timestamp ausbaudatum) {
     this.ausbaudatum = ausbaudatum;
   }
 }

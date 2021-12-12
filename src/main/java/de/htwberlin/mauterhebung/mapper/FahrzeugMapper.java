@@ -35,8 +35,8 @@ public class FahrzeugMapper extends AbstractDataGateway {
     fahrzeug.setFin(rs.getString("fin"));
     fahrzeug.setAchsen(rs.getInt("achsen"));
     fahrzeug.setGewicht(rs.getDouble("gewicht"));
-    fahrzeug.setAnmeldedatum(rs.getDate("anmeldedatum"));
-    fahrzeug.setAbmeldedatum(rs.getDate("abmeldedatum"));
+    fahrzeug.setAnmeldedatum(rs.getTimestamp("anmeldedatum"));
+    fahrzeug.setAbmeldedatum(rs.getTimestamp("abmeldedatum"));
     fahrzeug.setZulassungsland(rs.getString("zulassungsland"));
     return fahrzeug;
   }

@@ -1,6 +1,6 @@
 package de.htwberlin.mauterhebung.verfahren;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import de.htwberlin.exceptions.InvalidVehicleDataException;
@@ -39,7 +39,7 @@ public class AutoVerfahren {
     float maut = mautabschnitt.getLaenge() * mautkategorie.getMautsatzJeKm() / 100000;
     Mauterhebung mauterhebung =
         new Mauterhebung(mautabschnitt.getAbschnittsId(), fahrzeuggerat.getFzgId(),
-            mautkategorie.getKategorieId(), new Date(System.currentTimeMillis()), maut);
+            mautkategorie.getKategorieId(), new Timestamp(System.currentTimeMillis()), maut);
     mauterhebungMapper.insert(mauterhebung);
     return maut;
   }

@@ -1,6 +1,6 @@
 package de.htwberlin.mauterhebung.verfahren;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import de.htwberlin.exceptions.AlreadyCruisedException;
@@ -35,7 +35,7 @@ public class BuchVerfahren {
       throw new AlreadyCruisedException("Buchung mit ID " + buchung.getBId() + " ist nicht offen");
     }
     buchung.setBId(buchungstatusMapper.findByStatus("abgeschlossen").getBId());
-    buchung.setBefahrungsdatum(new Date(System.currentTimeMillis()));
+    buchung.setBefahrungsdatum(new Timestamp(System.currentTimeMillis()));
     buchungMapper.update(buchung);
     return buchung.getKosten();
   }
