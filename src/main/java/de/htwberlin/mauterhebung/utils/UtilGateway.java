@@ -42,8 +42,7 @@ public class UtilGateway extends AbstractDataGateway {
       }
       result = Integer.valueOf(result.intValue() + 1);
     } catch (SQLException e) {
-      L.error("Fehler beim Ermitteln der nächsten {} des Tables {}", idColumnName, tableName);
-      L.error("", e);
+      L.error("Fehler beim Ermitteln der nächsten {} des Tables {}", idColumnName, tableName, e);
       throw new DataException(e);
     }
     return result;
@@ -67,8 +66,7 @@ public class UtilGateway extends AbstractDataGateway {
       }
       result = Long.valueOf(result.intValue() + 1);
     } catch (SQLException e) {
-      L.error("Fehler beim Ermitteln der nächsten {} des Tables {}", idColumnName, tableName);
-      L.error("", e);
+      L.error("Fehler beim Ermitteln der nächsten {} des Tables {}", idColumnName, tableName, e);
       throw new DataException(e);
     }
     return result;
