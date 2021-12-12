@@ -74,9 +74,11 @@ public class MauterServiceImpl implements IMauterhebung {
 						/ 100f;
 		}
 		if (buchung != null) {
-			return Math.round(BuchVerfahren.berechneMaut(buchung, mautAbschnitt, achszahl) * 100) / 100f;
+			if (buchung.getAbschnittsId() == mautAbschnitt) {
+				return Math.round(BuchVerfahren.berechneMaut(buchung, mautAbschnitt, achszahl) * 100)
+						/ 100f;
+			}
 		}
-
 		L.error("Fehler beim Auslesen des Fahrzeugs mit Kennzeichen {}", kennzeichen);
 		throw new UnkownVehicleException("Fahrzeug mit Kennzeichen " + kennzeichen + " nicht gefunden");
 	}
