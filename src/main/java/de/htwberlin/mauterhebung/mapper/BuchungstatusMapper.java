@@ -25,14 +25,10 @@ public class BuchungstatusMapper extends AbstractDataGateway {
     return instance;
   }
 
-  public Buchungstatus rsToBuchungstatus(ResultSet rs) {
+  public Buchungstatus rsToBuchungstatus(ResultSet rs) throws SQLException {
     Buchungstatus buchungstatus = new Buchungstatus();
-    try {
-      buchungstatus.setBId(rs.getInt("b_id"));
-      buchungstatus.setStatus(rs.getString("status"));
-    } catch (Exception e) {
-      L.error("Fehler beim Erstellen eines Buchungstatus-Objekts aus ResultSet", e);
-    }
+    buchungstatus.setBId(rs.getInt("b_id"));
+    buchungstatus.setStatus(rs.getString("status"));
     return buchungstatus;
   }
 

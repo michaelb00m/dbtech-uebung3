@@ -10,37 +10,33 @@ import de.htwberlin.mauterhebung.AbstractDataGateway;
 import de.htwberlin.mauterhebung.dao.Fahrzeuggerat;
 
 public class FahrzeuggeratMapper extends AbstractDataGateway {
-  private static final Logger L = LoggerFactory.getLogger(FahrzeuggeratMapper.class);
+	private static final Logger L = LoggerFactory.getLogger(FahrzeuggeratMapper.class);
 
-  private static FahrzeuggeratMapper instance = null;
+	private static FahrzeuggeratMapper instance = null;
 
-  private FahrzeuggeratMapper() {
-    super();
-  }
+	private FahrzeuggeratMapper() {
+		super();
+	}
 
-  public static FahrzeuggeratMapper getInstance() {
-    if (instance == null) {
-      instance = new FahrzeuggeratMapper();
-    }
-    return instance;
-  }
+	public static FahrzeuggeratMapper getInstance() {
+		if (instance == null) {
+			instance = new FahrzeuggeratMapper();
+		}
+		return instance;
+	}
 
-  public Fahrzeuggerat rsToFahrzeuggerat(ResultSet rs) {
-    Fahrzeuggerat fahrzeuggerat = new Fahrzeuggerat();
-    try {
-      fahrzeuggerat.setFzgId(rs.getLong("fzg_id"));
-      fahrzeuggerat.setFzId(rs.getLong("fz_id"));
-      fahrzeuggerat.setStatus(rs.getString("status"));
-      fahrzeuggerat.setTyp(rs.getString("typ"));
-      fahrzeuggerat.setEinbaudatum(rs.getDate("einbaudatum"));
-      fahrzeuggerat.setAusbaudatum(rs.getDate("ausbaudatum"));
-    } catch (SQLException e) {
-      L.error("Fehler beim Erstellen eines Fahrzeuggerats", e);
-    }
-    return fahrzeuggerat;
-  }
+	public Fahrzeuggerat rsToFahrzeuggerat(ResultSet rs) throws SQLException {
+		Fahrzeuggerat fahrzeuggerat = new Fahrzeuggerat();
+		fahrzeuggerat.setFzgId(rs.getLong("fzg_id"));
+		fahrzeuggerat.setFzId(rs.getLong("fz_id"));
+		fahrzeuggerat.setStatus(rs.getString("status"));
+		fahrzeuggerat.setTyp(rs.getString("typ"));
+		fahrzeuggerat.setEinbaudatum(rs.getDate("einbaudatum"));
+		fahrzeuggerat.setAusbaudatum(rs.getDate("ausbaudatum"));
+		return fahrzeuggerat;
+	}
 
-  public Fahrzeuggerat findById(int fzgId) {
+	public Fahrzeuggerat findById(int fzgId) {
 		L.info("findById({})", fzgId);
 		Fahrzeuggerat fahrzeuggerat = null;
 		try {
@@ -54,13 +50,13 @@ public class FahrzeuggeratMapper extends AbstractDataGateway {
 			}
 		} catch (SQLException e) {
 			L.error("Fehler beim Auslesen des Fahrzeuggerats mit ID {}", fzgId);
-      L.error("", e);
+			L.error("", e);
 			throw new DataException(e);
 		}
 		return fahrzeuggerat;
-  }
+	}
 
-  public Fahrzeuggerat findByFzId(long fzId) {
+	public Fahrzeuggerat findByFzId(long fzId) {
 		L.info("findByFzId({})", fzId);
 		Fahrzeuggerat fahrzeuggerat = null;
 		try {
@@ -74,9 +70,9 @@ public class FahrzeuggeratMapper extends AbstractDataGateway {
 			}
 		} catch (SQLException e) {
 			L.error("Fehler beim Auslesen des Fahrzeuggerats mit FZ_ID {}", fzId);
-      L.error("", e);
+			L.error("", e);
 			throw new DataException(e);
 		}
 		return fahrzeuggerat;
-  }
+	}
 }
