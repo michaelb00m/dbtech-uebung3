@@ -9,7 +9,6 @@ import de.htwberlin.exceptions.DataException;
 import de.htwberlin.exceptions.InvalidVehicleDataException;
 import de.htwberlin.exceptions.UnkownVehicleException;
 import de.htwberlin.mauterhebung.dao.Buchung;
-import de.htwberlin.mauterhebung.dao.Buchungstatus;
 import de.htwberlin.mauterhebung.dao.Fahrzeug;
 import de.htwberlin.mauterhebung.dao.Fahrzeuggerat;
 import de.htwberlin.mauterhebung.mapper.BuchungMapper;
@@ -80,7 +79,7 @@ public class MauterServiceImpl implements IMauterhebung {
 			}
 		}
 		L.error("Fehler beim Auslesen des Fahrzeugs mit Kennzeichen {}", kennzeichen);
-		throw new UnkownVehicleException("Fahrzeug mit Kennzeichen " + kennzeichen + " nicht gefunden");
+		throw new UnkownVehicleException("Fahrzeug mit Kennzeichen " + kennzeichen + " nicht gefunden oder keine offene Buchung für den Mautabschnitt vorliegend.");
 	}
 
 }
