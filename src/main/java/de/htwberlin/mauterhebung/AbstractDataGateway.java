@@ -6,6 +6,7 @@ import de.htwberlin.exceptions.DataException;
 public abstract class AbstractDataGateway implements DataGateway {
   protected Connection connection;
 
+  @Override
   public void setConnection(Connection connection) {
     this.connection = connection;
   }
