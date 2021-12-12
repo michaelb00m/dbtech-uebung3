@@ -65,13 +65,13 @@ public class MauterServiceImpl implements IMauterhebung {
 			throws UnkownVehicleException, InvalidVehicleDataException, AlreadyCruisedException {
 		L.info("berechneMaut({}, {}, {})", mautAbschnitt, achszahl, kennzeichen);
 		Fahrzeug fahrzeug = fahrzeugMapper.findByKennzeichen(kennzeichen);
-		Buchung buchung = buchungMapper.findByKennzeichen(kennzeichen);
 		if (fahrzeug != null) {
 			Fahrzeuggerat fahrzeuggerat = fahrzeuggeratMapper.findByFzId(fahrzeug.getFzId());
 			if (fahrzeuggerat != null && fahrzeuggerat.getStatus() != "inactive")
 				return Math.round(AutoVerfahren.berechneMaut(fahrzeug, mautAbschnitt, achszahl) * 100)
 						/ 100f;
 		}
+		Buchung buchung = buchungMapper.findByKennzeichen(kennzeichen);
 		if (buchung != null) {
 			if (buchung.getAbschnittsId() == mautAbschnitt) {
 				return Math.round(BuchVerfahren.berechneMaut(buchung, mautAbschnitt, achszahl) * 100)
@@ -79,7 +79,8 @@ public class MauterServiceImpl implements IMauterhebung {
 			}
 		}
 		L.error("Fehler beim Auslesen des Fahrzeugs mit Kennzeichen {}", kennzeichen);
-		throw new UnkownVehicleException("Fahrzeug mit Kennzeichen " + kennzeichen + " nicht gefunden oder keine offene Buchung für den Mautabschnitt vorliegend.");
+		throw new UnkownVehicleException("Fahrzeug mit Kennzeichen " + kennzeichen
+				+ " nicht gefunden oder keine offene Buchung für den Mautabschnitt vorliegend.");
 	}
 
 }
